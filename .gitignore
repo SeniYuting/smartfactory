@@ -1,0 +1,9 @@
+*.class
+src/DataAccess/target
+src/DataAccess/.settings
+src/DataAccess/bin
+src/ConfigAdmin/.settings
+src/ConfigAdmin/build
+src/DataCore/.settings
+src/DataCore/bin
+src/DataTransfer/.idea

@@ -1,0 +1,755 @@
+/* 1 */
+{
+    "_id" : ObjectId("582d1cf546567574ec864c96"),
+    "name" : "t_today_order",
+    "type" : "single",
+    "tupleNum" : 1,
+    "frequency" : 10,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_today_order",
+            "frequency" : 10
+        }
+    ]
+}
+
+/* 2 */
+{
+    "_id" : ObjectId("586ae8b0bf86e459cc2ff902"),
+    "name" : "t_order_amount",
+    "type" : "single",
+    "tupleNum" : 1,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_order_amount",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 3 */
+{
+    "_id" : ObjectId("586ae8b8bf86e459cc2ff903"),
+    "name" : "t_customer_area_dist",
+    "type" : "list",
+    "tupleNum" : 2,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_customer_area_dist",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 4 */
+{
+    "_id" : ObjectId("586ae8c6bf86e459cc2ff904"),
+    "name" : "t_brand_top",
+    "type" : "list",
+    "tupleNum" : 2,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_brand_top",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 5 */
+{
+    "_id" : ObjectId("586ae8d1bf86e459cc2ff905"),
+    "name" : "t_material_top",
+    "type" : "list",
+    "tupleNum" : 2,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_material_top",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 6 */
+{
+    "_id" : ObjectId("586ae8ddbf86e459cc2ff906"),
+    "name" : "t_today_schedule",
+    "type" : "single",
+    "tupleNum" : 1,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_today_schedule",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 7 */
+{
+    "_id" : ObjectId("586ae8e6bf86e459cc2ff907"),
+    "name" : "t_order_promptness",
+    "type" : "single",
+    "tupleNum" : 1,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_order_promptness",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 8 */
+{
+    "_id" : ObjectId("586ae8f3bf86e459cc2ff908"),
+    "name" : "t_order_emergency",
+    "type" : "single",
+    "tupleNum" : 1,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_order_emergency",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 9 */
+{
+    "_id" : ObjectId("586ae949bf86e459cc2ff909"),
+    "name" : "t_order_variation",
+    "type" : "single",
+    "tupleNum" : 1,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_order_variation",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 10 */
+{
+    "_id" : ObjectId("586ae968bf86e459cc2ff90a"),
+    "name" : "t_order_exception",
+    "type" : "single",
+    "tupleNum" : 1,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_order_exception",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 11 */
+{
+    "_id" : ObjectId("586ae973bf86e459cc2ff90b"),
+    "name" : "t_customservice_worksheet",
+    "type" : "single",
+    "tupleNum" : 1,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_customservice_worksheet",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 12 */
+{
+    "_id" : ObjectId("586ae97cbf86e459cc2ff90c"),
+    "name" : "t_customservice_worksheet_state",
+    "type" : "list",
+    "tupleNum" : 2,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_customservice_worksheet_state",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 13 */
+{
+    "_id" : ObjectId("586ae98dbf86e459cc2ff90d"),
+    "name" : "t_customservice_worksheet_content",
+    "type" : "list",
+    "tupleNum" : 2,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_customservice_worksheet_content",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 14 */
+{
+    "_id" : ObjectId("586ae992bf86e459cc2ff90e"),
+    "name" : "t_customservice_online",
+    "type" : "single",
+    "tupleNum" : 1,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_customservice_online",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 15 */
+{
+    "_id" : ObjectId("586ae99bbf86e459cc2ff90f"),
+    "name" : "t_customservice_total",
+    "type" : "single",
+    "tupleNum" : 1,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_customservice_total",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 16 */
+{
+    "_id" : ObjectId("586ae9adbf86e459cc2ff911"),
+    "name" : "t_device",
+    "type" : "list",
+    "tupleNum" : 3,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_device",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 17 */
+{
+    "_id" : ObjectId("586ae9b7bf86e459cc2ff912"),
+    "name" : "t_product_line",
+    "type" : "list",
+    "tupleNum" : 3,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_product_line",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 18 */
+{
+    "_id" : ObjectId("586ae9e0bf86e459cc2ff913"),
+    "name" : "t_workstation",
+    "type" : "single",
+    "tupleNum" : 4,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_workstation",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 19 */
+{
+    "_id" : ObjectId("586ae9e6bf86e459cc2ff914"),
+    "name" : "t_congestion",
+    "type" : "single",
+    "tupleNum" : 5,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_congestion",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 20 */
+{
+    "_id" : ObjectId("586ae9f0bf86e459cc2ff915"),
+    "name" : "t_cutting_bed",
+    "type" : "list",
+    "tupleNum" : 3,
+    "frequency" : 10,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_cutting_bed",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 21 */
+{
+    "_id" : ObjectId("586ae9fabf86e459cc2ff916"),
+    "name" : "t_cutting_bed_tailor",
+    "type" : "single",
+    "tupleNum" : 3,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_cutting_bed_tailor",
+            "frequency" : 10
+        }
+    ]
+}
+
+/* 22 */
+{
+    "_id" : ObjectId("586aea02bf86e459cc2ff917"),
+    "name" : "t_qualityTest_oneTimeQualified",
+    "type" : "single",
+    "tupleNum" : 1,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_qualityTest_oneTimeQualified",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 23 */
+{
+    "_id" : ObjectId("586aea0cbf86e459cc2ff918"),
+    "name" : "t_qualityTest_repairQulified",
+    "type" : "single",
+    "tupleNum" : 1,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_qualityTest_repairQulified",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 24 */
+{
+    "_id" : ObjectId("586aea16bf86e459cc2ff919"),
+    "name" : "t_reason_analyze",
+    "type" : "list",
+    "tupleNum" : 2,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_reason_analyze",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 25 */
+{
+    "_id" : ObjectId("586aea1fbf86e459cc2ff91a"),
+    "name" : "t_produce_control",
+    "type" : "list",
+    "tupleNum" : 6,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_produce_control",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 26 */
+{
+    "_id" : ObjectId("586aea27bf86e459cc2ff91b"),
+    "name" : "t_env",
+    "type" : "list",
+    "tupleNum" : 2,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_env",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 27 */
+{
+    "_id" : ObjectId("586aea30bf86e459cc2ff91c"),
+    "name" : "t_schedule",
+    "type" : "list",
+    "tupleNum" : 2,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_schedule",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 28 */
+{
+    "_id" : ObjectId("586aea38bf86e459cc2ff91d"),
+    "name" : "t_scheduleInfo_successRate",
+    "type" : "single",
+    "tupleNum" : 1,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_scheduleInfo_successRate",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 29 */
+{
+    "_id" : ObjectId("586aea47bf86e459cc2ff91e"),
+    "name" : "t_scheduleInfo_conflictRate",
+    "type" : "single",
+    "tupleNum" : 1,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_scheduleInfo_conflictRate",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 30 */
+{
+    "_id" : ObjectId("586aea50bf86e459cc2ff91f"),
+    "name" : "t_scheduleInfo_faliure",
+    "type" : "single",
+    "tupleNum" : 1,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_scheduleInfo_faliure",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 31 */
+{
+    "_id" : ObjectId("586aea59bf86e459cc2ff920"),
+    "name" : "t_supplyChain_materials",
+    "type" : "single",
+    "tupleNum" : 1,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_supplyChain_materials",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 32 */
+{
+    "_id" : ObjectId("586aea62bf86e459cc2ff921"),
+    "name" : "t_supplyChain_accessories",
+    "type" : "single",
+    "tupleNum" : 1,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_supplyChain_accessories",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 33 */
+{
+    "_id" : ObjectId("586aea6cbf86e459cc2ff922"),
+    "name" : "t_supplyChain_parts",
+    "type" : "single",
+    "tupleNum" : 1,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_supplyChain_parts",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 34 */
+{
+    "_id" : ObjectId("586aea75bf86e459cc2ff923"),
+    "name" : "t_supplyChain_completeRate",
+    "type" : "single",
+    "tupleNum" : 1,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_supplyChain_completeRate",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 35 */
+{
+    "_id" : ObjectId("586aea7dbf86e459cc2ff924"),
+    "name" : "t_supplyChain_intimeRate",
+    "type" : "single",
+    "tupleNum" : 1,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_supplyChain_intimeRate",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 36 */
+{
+    "_id" : ObjectId("586aea89bf86e459cc2ff925"),
+    "name" : "t_plan_complete",
+    "type" : "list",
+    "tupleNum" : 2,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_plan_complete",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 37 */
+{
+    "_id" : ObjectId("586aea91bf86e459cc2ff926"),
+    "name" : "t_it_env",
+    "type" : "list",
+    "tupleNum" : 3,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_it_env",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 38 */
+{
+    "_id" : ObjectId("586aea99bf86e459cc2ff927"),
+    "name" : "t_resource_host",
+    "type" : "list",
+    "tupleNum" : 2,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_resource_host",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 39 */
+{
+    "_id" : ObjectId("586aeaa1bf86e459cc2ff928"),
+    "name" : "t_resource_database",
+    "type" : "list",
+    "tupleNum" : 2,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_resource_database",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 40 */
+{
+    "_id" : ObjectId("586aeaa9bf86e459cc2ff929"),
+    "name" : "t_resource_middleware",
+    "type" : "list",
+    "tupleNum" : 2,
+    "frequency" : 60,
+    "rule" : {},
+    "dataSourceList" : [ 
+        {
+            "name" : "s_resource_middleware",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 41 */
+{
+    "_id" : ObjectId("5871cfd1bf86e459cc2ff958"),
+    "name" : "t_test_1",
+    "type" : "single",
+    "tupleNum" : 5,
+    "frequency" : 10,
+    "rule" : {
+        "ruleName" : "sort",
+        "key" : "flow",
+        "order" : "desc"
+    },
+    "dataSourceList" : [ 
+        {
+            "name" : "s_test_1",
+            "frequency" : 60
+        }, 
+        {
+            "name" : "s_test_2",
+            "frequency" : 60
+        }, 
+        {
+            "name" : "s_test_3",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 42 */
+{
+    "_id" : ObjectId("5871d006bf86e459cc2ff959"),
+    "name" : "t_test_2",
+    "type" : "single",
+    "tupleNum" : 5,
+    "frequency" : 10,
+    "rule" : {
+        "ruleName" : "exp",
+        "key" : "flow",
+        "expression" : "s_test_1 + s_test_2 + s_test_3"
+    },
+    "dataSourceList" : [ 
+        {
+            "name" : "s_test_1",
+            "frequency" : 60
+        }, 
+        {
+            "name" : "s_test_2",
+            "frequency" : 60
+        }, 
+        {
+            "name" : "s_test_3",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 43 */
+{
+    "_id" : ObjectId("58722d7a2c07e63f1bf296d0"),
+    "name" : "t_schedule_list",
+    "type" : "list",
+    "tupleNum" : 5,
+    "frequency" : 10,
+    "rule" : {
+        "ruleName" : "sort",
+        "key" : "num",
+        "order" : "desc"
+    },
+    "dataSourceList" : [ 
+        {
+            "name" : "s_schedule_1",
+            "frequency" : 60
+        }, 
+        {
+            "name" : "s_schedule_2",
+            "frequency" : 60
+        }, 
+        {
+            "name" : "s_schedule_3",
+            "frequency" : 60
+        }, 
+        {
+            "name" : "s_schedule_4",
+            "frequency" : 60
+        }, 
+        {
+            "name" : "s_schedule_5",
+            "frequency" : 60
+        }
+    ]
+}
+
+/* 44 */
+{
+    "_id" : ObjectId("587238fa2c07e63f1bf296d2"),
+    "name" : "t_customservice_worksheet_add",
+    "type" : "single",
+    "tupleNum" : 1,
+    "frequency" : 10,
+    "rule" : {
+        "ruleName" : "exp",
+        "key" : "count",
+        "expression" : "s_customservice_worksheet + s_customservice_worksheet_2"
+    },
+    "dataSourceList" : [ 
+        {
+            "name" : "s_customservice_worksheet",
+            "frequency" : 60
+        }, 
+        {
+            "name" : "s_customservice_worksheet_2",
+            "frequency" : 60
+        }
+    ]
+}

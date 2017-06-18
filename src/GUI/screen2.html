@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content="60"> <!-- 60秒刷新一次页面-->
+    <title>Screen2</title>
+    <script src="js/angular.min.js"></script>
+    <script type="text/javascript">
+      if(!navigator.onLine){
+          alert("网络连接失败！");
+      }
+    </script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/screen2.css">
+  </head>
+  <body>
+    <div ng-app="myApp" ng-controller="screen2Ctrl" class="main_container">
+        <div class="row">
+          <div class="col-md-12">
+            <h5 class="title_center">银川滨河如意</h5>
+            <h1 class="title_center">智能数据运营中心</h1>
+          </div>
+          <div class="col-md-12 pinki" style="padding-left: 0px">
+            <div class="col-md-2">  
+              <span class="pinki_brand">Pinki</span>   
+            </div>   
+            <div class="col-md-2 pink_top">   
+              <span class="pink_title">品依科技</span>   
+              <span class="glyphicon glyphicon-play pink_arrow"></span>   
+            </div>  
+            <div class="col-md-8 pink_top">   
+              <div class="pinki_info">拥堵节点:<span ng-bind="congestion.node"></span> 拥堵原因:<span ng-bind="congestion.reason"></span> 整改措施:<span ng-bind="congestion.measure"></span> 责任人:<span ng-bind="congestion.responsible_person"></span> 预计恢复时间:<span ng-bind="congestion.recovery_time.$numberLong| date:'short'"></span></div>   
+            </div>   
+          </div>
+          <div class="col-md-3 right_border_dashed">
+            <h2>智能吊挂系统<span class="glyphicon glyphicon-play arrow"></span></h2>
+            <div ng-repeat="line in productLine" ng-class="$last ? 'col-md-4' : 'col-md-4 right_border'">
+              <span class="productLine_on" ng-bind="line.using"></span>
+              <span class="productLine_off">/</span>
+              <span class="productLine_off" ng-bind="line.total"></span>
+              <br/>
+              <span ng-bind="line.name"></span>
+            </div>
+            <div class="col-md-12 workstation_top">
+              <span class="workstation">工作站暂压: </span><span class="workstation_num" ng-if="workStation.overstock!=''" ng-bind="workStation.overstock|number:2"></span>
+            </div>
+            <div class="col-md-12">
+              <span class="workstation">配对工作站时间效率: </span><span class="workstation_num" ng-if="workStation.peroid!=''" ng-bind="workStation.peroid|number:2"></span><span class="workstation_num">s</span>
+            </div>
+            <div class="col-md-12">
+              <span class="workstation">暂压的裁片数量: </span><span class="workstation_num" ng-if="workStation.cut_parts!=''" ng-bind="workStation.cut_parts|number:2"></span>
+            </div>
+            <div class="col-md-12">
+              <span class="workstation">服装配对事件: </span><span class="workstation_num" ng-bind="workStation.pair_event"></span>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <h2>自动裁床<span class="glyphicon glyphicon-play arrow"></span></h2>
+            <div ng-repeat="bed in cuttingBed" ng-class="$last ? 'col-md-4' : 'col-md-4 right_border'">
+              <span class="brand_on" ng-bind="bed.using"></span>
+              <span class="brand_off">/</span>
+              <span class="brand_off" ng-bind="bed.total"></span>
+              <br/>
+              <span ng-bind="bed.name"></span>
+            </div>
+            <div class="col-md-12 tailor_top">
+              <span class="tailor">有效工作时间: </span><span class="tailor_num" ng-bind="tailor.working_time"></span>
+            </div>
+            <div class="col-md-12">
+              <span class="tailor">刀头的移动时间: </span><span class="tailor_num" ng-bind="tailor.moving_time"></span>
+            </div>
+            <div class="col-md-12">
+              <span class="tailor">平均裁剪数量: </span><span class="tailor_num" ng-if="tailor.cutting_num!=''" ng-bind="tailor.cutting_num|number:2"></span>
+            </div>
+          </div>
+          <div class="col-md-3 right_border_dashed">
+            <h2>AVG小车<span class="glyphicon glyphicon-play arrow"></span></h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>当前站</th>
+                  <th>停留</th>
+                  <th>运送面料</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="car in avgCar">
+                  <td ng-bind="car.name"></td>
+                  <td ng-bind="car.station"></td>
+                  <td><span ng-bind="car.stay"></span>''</td>
+                  <td>#<span ng-bind="car.shipping_material"></span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-3">
+            <h2>其他设备</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>开机率</th>
+                  <th>设备运行状态</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="device in otherDevice">
+                  <td ng-bind="device.type"></td>
+                  <td>
+                    <span class="other_device_on" ng-bind="device.onnum"></span>
+                    <span class="other_device_off">/</span>
+                    <span class="other_device_off" ng-bind="device.total"></span>
+                  </td>
+                  <td>
+                    <span class="glyphicon glyphicon-ok-circle other_device_state" ng-if="device.normalnum/device.total>=1/3"></span>
+                    <span class="glyphicon glyphicon-ok-circle other_device_state" ng-if="device.normalnum/device.total>=2/3"></span>
+                    <span class="glyphicon glyphicon-ok-circle other_device_state" ng-if="device.normalnum/device.total==1"></span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-12 title_center">
+          	<span class="pinki_brand">Pinki</span>
+	        <span class="pink_title">品依科技 成就智慧如意</span>
+          </div>
+        </div>
+
+    <script src="js/screen2.js"></script>
+  </body>
+</html>

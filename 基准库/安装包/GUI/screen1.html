@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />    
+    <meta http-equiv="refresh" content="60"> <!-- 60秒刷新一次页面-->
+    <title>Screen1</title>
+    <script src="js/angular.min.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script type="text/javascript">
+        if(!navigator.onLine){
+            alert("网络连接失败！");
+        }
+    </script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/screen1.css">
+</head>
+    
+<body>
+    <div ng-app="myApp" ng-controller="screen1Ctrl" class="main_container">
+        <h2>全球3D智能营销平台</h2>
+        <div class="row">
+            <div class="col-md-6" style="margin-top:20px;padding-left: 0px">
+                <div class="col-md-6">
+                    <span>今日新增订单：</span><span class="data" ng-bind="order.todayOrder|number:0"></span>
+                </div>
+                <div class="col-md-6">
+                    <span>订单金额：</span><span class="data" ng-if="order.orderAmount!=''" ng-bind="order.orderAmount|number:2"></span><span>万</span>
+                </div>
+                <div class="col-md-12" style="margin-top: 20px">
+                    <h4>客户区域分布</h4>
+                    <div id="customerAreaDist" style="width: 100%;height:250px;"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h4>订单品牌TOP3</h4>
+                <div id="brandTop" style="width: 100%;height:150px;"></div>
+                <h4>订单面料TOP3</h4>
+                <div id="materialTop" style="width: 100%;height:150px;"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <span>今日排产订单：</span><span class="data" ng-bind="order.todaySchedule|number:0"></span>
+                <div class="col-md-12" style="padding-left: 0px">
+                    <div class="col-md-3" style="padding-left: 0px;width: 150px">
+                        <div style="margin-top: 35px">订单完成及时率</div>
+                        <div class="data" style="padding-left: 0px;" ng-bind="order.promptness"></div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="col-md-3 border">
+                            <div class="data" style="color: rgb(101,222,249);" ng-bind="order.emergency"></div>
+                            <div style="color: gray">加急订单</div>
+                        </div>
+                        <div class="col-md-3 border">
+                            <div class="data" style="color: rgb(128,253,0);" ng-bind="order.variation"></div>
+                            <div style="color: gray">变更订单</div>
+                        </div>
+                        <div class="col-md-3 border">
+                            <div class="data" style="color: rgb(253,136,7);" ng-bind="order.exception"></div>
+                            <div style="color: gray">异常订单</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" style="padding-left: 0px">
+                <div class="col-md-6">
+                    <span>客服工单：</span><span class="data" ng-if="customService.workSheet!=''" ng-bind="customService.workSheet|number:0"></span>
+                    <div style="margin-top: 10px">处理状态
+                        <div id="workSheetState" style="width: 100%;height:200px;"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <span>客服在线人数：</span><span class="data" ng-if="customService.online!=''" ng-bind="customService.online|number:0"></span>
+                    <span class="dataTotal">/</span>
+                    <span class="dataTotal" ng-if="customService.total!=''" ng-bind="customService.total|number:0"></span>
+                    <div style="margin-top: 10px">内容分类
+                        <div id="workSheetContent" style="width: 100%;height:200px;min-width: 310px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/screen1.js"></script>
+
+</body>
+</html>

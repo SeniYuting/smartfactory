@@ -1,0 +1,4 @@
+本地开发使用Firefox调试，glyphicon图标不显示，原因：firefox安全性限制，解决方案如下：
+1.在Firefox地址栏输入about:config回车；
+2.搜索security.fileuri.strict_origin_policy双击，把true变为false；
+3.刷新页面；

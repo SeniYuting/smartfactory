@@ -1,0 +1,11 @@
+{
+  "appenders": [
+    {"type": "console"},
+    {
+      "type": "file",
+      "filename": "../../logs/logInfo.log",
+      "category": "logInfo"
+    }
+  ],
+  "logFilePath" : "../../logs"
+}

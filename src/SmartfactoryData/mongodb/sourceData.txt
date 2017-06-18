@@ -1,0 +1,549 @@
+/* 1 */
+{
+    "_id" : ObjectId("586aeae3bf86e459cc2ff92a"),
+    "name" : "s_today_order",
+    "type" : "single",
+    "tupleNum" : "1",
+    "frequency" : "1m",
+    "source" : "dataSourceA",
+    "SQL" : "SELECT count(*) as count FROM `order` WHERE to_days(date) = to_days(now())"
+}
+
+/* 2 */
+{
+    "_id" : ObjectId("586aeb12bf86e459cc2ff92b"),
+    "name" : "s_customer_area_dist",
+    "type" : "list",
+    "tupleNum" : "2",
+    "frequency" : "1m",
+    "source" : "dataSourceA",
+    "SQL" : "SELECT area as name,count(*) as value FROM `order` GROUP BY area ORDER BY value DESC limit 5"
+}
+
+/* 3 */
+{
+    "_id" : ObjectId("586aeb1bbf86e459cc2ff92c"),
+    "name" : "s_order_amount",
+    "type" : "single",
+    "tupleNum" : "1",
+    "frequency" : "1m",
+    "source" : "dataSourceA",
+    "SQL" : "SELECT sum(price) as sum FROM `order` WHERE to_days(date) = to_days(now())"
+}
+
+/* 4 */
+{
+    "_id" : ObjectId("586aeb24bf86e459cc2ff92d"),
+    "name" : "s_brand_top",
+    "type" : "list",
+    "tupleNum" : "2",
+    "frequency" : "1m",
+    "source" : "dataSourceA",
+    "SQL" : "SELECT brand as name,count(*) as value FROM `order` GROUP BY `brand` ORDER BY value DESC LIMIT 3"
+}
+
+/* 5 */
+{
+    "_id" : ObjectId("586aeb2cbf86e459cc2ff92e"),
+    "name" : "s_material_top",
+    "type" : "list",
+    "tupleNum" : "2",
+    "frequency" : "1m",
+    "source" : "dataSourceA",
+    "SQL" : "SELECT material as name,count(*) as value FROM `order` GROUP BY `material` ORDER BY value DESC LIMIT 3"
+}
+
+/* 6 */
+{
+    "_id" : ObjectId("586aeb35bf86e459cc2ff92f"),
+    "name" : "s_today_schedule",
+    "type" : "single",
+    "tupleNum" : "1",
+    "frequency" : "1m",
+    "source" : "dataSourceA",
+    "SQL" : "SELECT count(*) as count FROM `order` WHERE to_days(date) = to_days(now()) AND is_schedule = 1"
+}
+
+/* 7 */
+{
+    "_id" : ObjectId("586aeb3fbf86e459cc2ff930"),
+    "name" : "s_order_promptness",
+    "type" : "single",
+    "tupleNum" : "1",
+    "frequency" : "1m",
+    "source" : "dataSourceA",
+    "SQL" : "SELECT (SELECT count(*) FROM `order` WHERE `is_in_time` = 1) / (SELECT count(*) FROM `order`) as value"
+}
+
+/* 8 */
+{
+    "_id" : ObjectId("586aeb49bf86e459cc2ff931"),
+    "name" : "s_order_emergency",
+    "type" : "single",
+    "tupleNum" : "1",
+    "frequency" : "1m",
+    "source" : "dataSourceA",
+    "SQL" : "SELECT count(*) as count FROM `order` WHERE `state` = 'urgent'"
+}
+
+/* 9 */
+{
+    "_id" : ObjectId("586aeb51bf86e459cc2ff932"),
+    "name" : "s_order_variation",
+    "type" : "single",
+    "tupleNum" : "1",
+    "frequency" : "1m",
+    "source" : "dataSourceA",
+    "SQL" : "SELECT count(*) as count FROM `order` WHERE `state` = 'change'"
+}
+
+/* 10 */
+{
+    "_id" : ObjectId("586aeb5bbf86e459cc2ff933"),
+    "name" : "s_order_exception",
+    "type" : "single",
+    "tupleNum" : "1",
+    "frequency" : "1m",
+    "source" : "dataSourceA",
+    "SQL" : "SELECT count(*) as count FROM `order` WHERE `state` = 'exception'"
+}
+
+/* 11 */
+{
+    "_id" : ObjectId("586aeb64bf86e459cc2ff934"),
+    "name" : "s_customservice_worksheet",
+    "type" : "single",
+    "tupleNum" : "1",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT count(*) as count FROM custom_service_worksheet WHERE state != '完成'"
+}
+
+/* 12 */
+{
+    "_id" : ObjectId("586aeb6cbf86e459cc2ff935"),
+    "name" : "s_customservice_worksheet_state",
+    "type" : "list",
+    "tupleNum" : "2",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT state as name,count(*) as value FROM custom_service_worksheet WHERE state != '完成' GROUP BY state"
+}
+
+/* 13 */
+{
+    "_id" : ObjectId("586aeb75bf86e459cc2ff936"),
+    "name" : "s_customservice_worksheet_content",
+    "type" : "list",
+    "tupleNum" : "2",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT content as name,count(*) as value FROM custom_service_worksheet WHERE state != '完成' GROUP BY content ORDER BY value DESC limit 5"
+}
+
+/* 14 */
+{
+    "_id" : ObjectId("586aeb7ebf86e459cc2ff937"),
+    "name" : "s_customservice_online",
+    "type" : "single",
+    "tupleNum" : "1",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT COUNT(*) as online FROM custom_service_staff WHERE state='online'"
+}
+
+/* 15 */
+{
+    "_id" : ObjectId("586aeb87bf86e459cc2ff938"),
+    "name" : "s_customservice_total",
+    "type" : "single",
+    "tupleNum" : "1",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT COUNT(*) as total FROM custom_service_staff"
+}
+
+/* 16 */
+{
+    "_id" : ObjectId("586aeb8fbf86e459cc2ff939"),
+    "name" : "s_avgcar",
+    "type" : "list",
+    "tupleNum" : "5",
+    "frequency" : "1m",
+    "source" : "dataSourceA",
+    "SQL" : "SELECT * FROM avg_car"
+}
+
+/* 17 */
+{
+    "_id" : ObjectId("586aeb9abf86e459cc2ff93a"),
+    "name" : "s_device",
+    "type" : "list",
+    "tupleNum" : "3",
+    "frequency" : "1m",
+    "source" : "dataSourceA",
+    "SQL" : "SELECT a.type,a.onnum,b.normalnum,c.total FROM (SELECT type,count(*) as onnum FROM device WHERE is_on = 1 GROUP BY type)a ,(SELECT type ,count(*) as normalnum FROM device WHERE is_normal=1 GROUP BY type)b, (SELECT type ,count(*) as total FROM device GROUP BY type)c WHERE a.type=b.type and b.type=c.type"
+}
+
+/* 18 */
+{
+    "_id" : ObjectId("586aeba8bf86e459cc2ff93b"),
+    "name" : "s_product_line",
+    "type" : "list",
+    "tupleNum" : "3",
+    "frequency" : "1m",
+    "source" : "dataSourceC",
+    "SQL" : "SELECT name,`using`, total FROM product_line"
+}
+
+/* 19 */
+{
+    "_id" : ObjectId("586aebb2bf86e459cc2ff93c"),
+    "name" : "s_workstation",
+    "type" : "single",
+    "tupleNum" : "4",
+    "frequency" : "1m",
+    "source" : "dataSourceC",
+    "SQL" : "SELECT sum(overstock) as overstock,sum(peroid) as peroid,sum(cut_parts) as cut_parts,sum(pair_event) as pair_event FROM product_line"
+}
+
+/* 20 */
+{
+    "_id" : ObjectId("586aebbabf86e459cc2ff93d"),
+    "name" : "s_congestion",
+    "type" : "single",
+    "tupleNum" : "5",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT node,reason,measure,responsible_person,recovery_time FROM congestion ORDER BY flow DESC LIMIT 1"
+}
+
+/* 21 */
+{
+    "_id" : ObjectId("586aebc2bf86e459cc2ff93e"),
+    "name" : "s_cutting_bed",
+    "type" : "list",
+    "tupleNum" : "3",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT name,`using`, total FROM cutting_bed"
+}
+
+/* 22 */
+{
+    "_id" : ObjectId("586aebcabf86e459cc2ff93f"),
+    "name" : "s_cutting_bed_tailor",
+    "type" : "single",
+    "tupleNum" : "3",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT sum(working_time) as working_time,sum(moving_time) as moving_time,avg(cutting_num) as cutting_num FROM cutting_bed"
+}
+
+/* 23 */
+{
+    "_id" : ObjectId("586aebd2bf86e459cc2ff940"),
+    "name" : "s_qualityTest_oneTimeQualified",
+    "type" : "single",
+    "tupleNum" : "1",
+    "frequency" : "1m",
+    "source" : "dataSourceA",
+    "SQL" : "SELECT (SELECT count(*) FROM `quality_test` WHERE `is_one_time_qualified` = '合格') / (SELECT count(*) FROM `quality_test`) as value"
+}
+
+/* 24 */
+{
+    "_id" : ObjectId("586aebdbbf86e459cc2ff941"),
+    "name" : "s_qualityTest_repairQulified",
+    "type" : "single",
+    "tupleNum" : "1",
+    "frequency" : "1m",
+    "source" : "dataSourceA",
+    "SQL" : "SELECT (SELECT count(*) FROM `quality_test` WHERE `is_one_time_qualified` = '不合格' and `is_repair_qualified` = '合格') / (SELECT count(*) FROM `quality_test` WHERE `is_one_time_qualified` = '不合格') as value"
+}
+
+/* 25 */
+{
+    "_id" : ObjectId("586aebe4bf86e459cc2ff942"),
+    "name" : "s_reason_analyze",
+    "type" : "list",
+    "tupleNum" : "2",
+    "frequency" : "1m",
+    "source" : "dataSourceA",
+    "SQL" : "SELECT not_qualify_reason as name,count(*) as value FROM `quality_test` WHERE not_qualify_reason!='NULL' GROUP BY not_qualify_reason ORDER BY value DESC limit 5"
+}
+
+/* 26 */
+{
+    "_id" : ObjectId("586aebedbf86e459cc2ff943"),
+    "name" : "s_produce_control",
+    "type" : "list",
+    "tupleNum" : "6",
+    "frequency" : "1m",
+    "source" : "dataSourceA",
+    "SQL" : "SELECT workshop, onduty, total_num, daily_output, rework_rate, average_hours FROM produce_control WHERE to_days(date) = to_days(now())"
+}
+
+/* 27 */
+{
+    "_id" : ObjectId("586aebf5bf86e459cc2ff944"),
+    "name" : "s_env",
+    "type" : "list",
+    "tupleNum" : "2",
+    "frequency" : "1m",
+    "source" : "dataSourceA",
+    "SQL" : "SELECT * FROM env"
+}
+
+/* 28 */
+{
+    "_id" : ObjectId("586aebfdbf86e459cc2ff945"),
+    "name" : "s_schedule",
+    "type" : "list",
+    "tupleNum" : "2",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT num, type FROM schedule"
+}
+
+/* 29 */
+{
+    "_id" : ObjectId("586aec06bf86e459cc2ff946"),
+    "name" : "s_scheduleInfo_successRate",
+    "type" : "single",
+    "tupleNum" : "1",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT (SELECT count(*) FROM `schedule_info` WHERE `is_success` = 1) / (SELECT count(*) FROM `schedule_info`) as value"
+}
+
+/* 30 */
+{
+    "_id" : ObjectId("586aec0ebf86e459cc2ff947"),
+    "name" : "s_scheduleInfo_conflictRate",
+    "type" : "single",
+    "tupleNum" : "1",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT (SELECT count(*) FROM `schedule_info` WHERE `is_success` = 0 and `is_conflict` = 1) / (SELECT count(*) FROM `schedule_info` WHERE `is_success` = 0) as value"
+}
+
+/* 31 */
+{
+    "_id" : ObjectId("586aec16bf86e459cc2ff948"),
+    "name" : "s_scheduleInfo_faliure",
+    "type" : "single",
+    "tupleNum" : "1",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT count(*) as count FROM `schedule_info` WHERE `is_success` = 0"
+}
+
+/* 32 */
+{
+    "_id" : ObjectId("586aec1fbf86e459cc2ff949"),
+    "name" : "s_supplyChain_materials",
+    "type" : "single",
+    "tupleNum" : "1",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT count(*) as count FROM `supply_chain` WHERE to_days(date) = to_days(now()) AND `type` = '面料'"
+}
+
+/* 33 */
+{
+    "_id" : ObjectId("586aec28bf86e459cc2ff94a"),
+    "name" : "s_supplyChain_accessories",
+    "type" : "single",
+    "tupleNum" : "1",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT count(*) as count FROM `supply_chain` WHERE to_days(date) = to_days(now()) AND `type` = '辅料'"
+}
+
+/* 34 */
+{
+    "_id" : ObjectId("586aec2fbf86e459cc2ff94b"),
+    "name" : "s_supplyChain_parts",
+    "type" : "single",
+    "tupleNum" : "1",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT count(*) as count FROM `supply_chain` WHERE to_days(date) = to_days(now()) AND `type` = '配件'"
+}
+
+/* 35 */
+{
+    "_id" : ObjectId("586aec37bf86e459cc2ff94c"),
+    "name" : "s_supplyChain_completeRate",
+    "type" : "single",
+    "tupleNum" : "1",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT (SELECT count(*) FROM `supply_chain` WHERE `is_complete` = 1) / (SELECT count(*) FROM `supply_chain`) as value"
+}
+
+/* 36 */
+{
+    "_id" : ObjectId("586aec40bf86e459cc2ff94d"),
+    "name" : "s_supplyChain_intimeRate",
+    "type" : "single",
+    "tupleNum" : "1",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT (SELECT count(*) FROM `supply_chain` WHERE `is_intime` = 1) / (SELECT count(*) FROM `supply_chain`) as value"
+}
+
+/* 37 */
+{
+    "_id" : ObjectId("586aec48bf86e459cc2ff94e"),
+    "name" : "s_plan_complete",
+    "type" : "list",
+    "tupleNum" : "2",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "(SELECT type as name,count(*) as value FROM `plan_complete` WHERE is_complete=1 GROUP BY type) UNION ALL (SELECT type as name,count(*) as value FROM `plan_complete` GROUP BY `type`)"
+}
+
+/* 38 */
+{
+    "_id" : ObjectId("586aec50bf86e459cc2ff94f"),
+    "name" : "s_it_env",
+    "type" : "list",
+    "tupleNum" : "3",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT temperature, humidity, voltage FROM `it_env` limit 1"
+}
+
+/* 39 */
+{
+    "_id" : ObjectId("586aec57bf86e459cc2ff950"),
+    "name" : "s_resource_host",
+    "type" : "list",
+    "tupleNum" : "2",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT production_line as name, num as value FROM `resource` WHERE type='主机'"
+}
+
+/* 40 */
+{
+    "_id" : ObjectId("586aec63bf86e459cc2ff951"),
+    "name" : "s_resource_database",
+    "type" : "list",
+    "tupleNum" : "2",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT production_line as name, num as value FROM `resource` WHERE type='数据库'"
+}
+
+/* 41 */
+{
+    "_id" : ObjectId("586aec6dbf86e459cc2ff952"),
+    "name" : "s_resource_middleware",
+    "type" : "list",
+    "tupleNum" : "2",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT production_line as name, num as value FROM `resource` WHERE type='中间件'"
+}
+
+/* 42 */
+{
+    "_id" : ObjectId("5871d6e5e00e32d393516bdb"),
+    "name" : "s_test_1",
+    "type" : "single",
+    "tupleNum" : "5",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT * FROM congestion WHERE congestion_id=1"
+}
+
+/* 43 */
+{
+    "_id" : ObjectId("5871d6e5e00e32d393516bdd"),
+    "name" : "s_test_2",
+    "type" : "single",
+    "tupleNum" : "5",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT * FROM congestion WHERE congestion_id=2"
+}
+
+/* 44 */
+{
+    "_id" : ObjectId("5871d6e5e00e32d393516bdf"),
+    "name" : "s_test_3",
+    "type" : "single",
+    "tupleNum" : "5",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT * FROM congestion WHERE congestion_id=3"
+}
+
+/* 45 */
+{
+    "_id" : ObjectId("5872258d2c07e63f1bf296cb"),
+    "name" : "s_schedule_1",
+    "type" : "single",
+    "tupleNum" : "2",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT num, type FROM schedule WHERE s_id=1"
+}
+
+/* 46 */
+{
+    "_id" : ObjectId("587225a52c07e63f1bf296cc"),
+    "name" : "s_schedule_2",
+    "type" : "single",
+    "tupleNum" : "2",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT num, type FROM schedule WHERE s_id=2"
+}
+
+/* 47 */
+{
+    "_id" : ObjectId("587225e72c07e63f1bf296cd"),
+    "name" : "s_schedule_3",
+    "type" : "single",
+    "tupleNum" : "2",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT num, type FROM schedule WHERE s_id=3"
+}
+
+/* 48 */
+{
+    "_id" : ObjectId("58722b412c07e63f1bf296ce"),
+    "name" : "s_schedule_4",
+    "type" : "single",
+    "tupleNum" : "2",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT num, type FROM schedule WHERE s_id=4"
+}
+
+/* 49 */
+{
+    "_id" : ObjectId("58722b602c07e63f1bf296cf"),
+    "name" : "s_schedule_5",
+    "type" : "single",
+    "tupleNum" : "2",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT num, type FROM schedule WHERE s_id=5"
+}
+
+/* 50 */
+{
+    "_id" : ObjectId("587237ac2c07e63f1bf296d1"),
+    "name" : "s_customservice_worksheet_2",
+    "type" : "single",
+    "tupleNum" : "1",
+    "frequency" : "1m",
+    "source" : "dataSourceB",
+    "SQL" : "SELECT count(*) as count FROM custom_service_worksheet_2 WHERE state != '完成'"
+}

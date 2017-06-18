@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd  
+                        http://www.springframework.org/schema/context  
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd
+                        http://www.springframework.org/schema/data/mongo 
+                        http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd  
+                        http://www.springframework.org/schema/mvc  
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+	<!-- 自动扫描 -->
+	<context:component-scan base-package="com.adc" />
+	<mvc:annotation-driven />
+	<!-- 引入配置文件 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:jdbc.properties" />
+	</bean>
+
+	<mongo:mongo id="mongo" replica-set="${mongo.replicaSet}">
+		<mongo:options connections-per-host="${mongo.connectionsPerHost}"
+			threads-allowed-to-block-for-connection-multiplier="${mongo.threadsAllowedToBlockForConnectionMultiplier}"
+			connect-timeout="${mongo.connectTimeout}" 
+			max-wait-time="${mongo.maxWaitTime}"
+			auto-connect-retry="${mongo.autoConnectRetry}" 
+			socket-keep-alive="${mongo.socketKeepAlive}"
+			socket-timeout="${mongo.socketTimeout}" 
+			slave-ok="${mongo.slaveOk}"
+			write-number="${mongo.writeNumber}" 
+			write-timeout="${mongo.riteTimeout}"
+			write-fsync="${mongo.writeFsync}" />
+	</mongo:mongo>
+	<!-- 设置使用的数据库 名 -->
+	<mongo:db-factory dbname="DataConfig" username="" password="" mongo-ref="mongo"/>
+	<!-- mongodb的模板 -->
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+	</bean>
+
+	<bean id="defaultDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${driver}" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+		<property name="testOnBorrow" value="${testOnBorrow}" />        
+        <property name="testWhileIdle" value="${testWhileIdle}" />  
+		<property name="initialSize" value="${initialSize}"></property>
+		<property name="maxActive" value="${maxActive}"></property>
+		<property name="maxIdle" value="${maxIdle}"></property>
+		<property name="minIdle" value="${minIdle}"></property>
+		<property name="maxWait" value="${maxWait}"></property>
+		<property name="validationQuery" value="${validationQuery}" />  
+		<property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />  
+        <property name="removeAbandoned" value="${removeAbandoned}" />  
+		<property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />    
+	</bean>
+
+	<bean id="dataSourceA" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${driver}" />
+		<property name="url" value="${A.url}" />
+		<property name="username" value="${A.username}" />
+		<property name="password" value="${A.password}" />
+		<property name="testOnBorrow" value="${testOnBorrow}" />        
+        <property name="testWhileIdle" value="${testWhileIdle}" />  
+		<property name="initialSize" value="${initialSize}"></property>
+		<property name="maxActive" value="${maxActive}"></property>
+		<property name="maxIdle" value="${maxIdle}"></property>
+		<property name="minIdle" value="${minIdle}"></property>
+		<property name="maxWait" value="${maxWait}"></property>
+		<property name="validationQuery" value="${validationQuery}" />  
+		<property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />  
+        <property name="removeAbandoned" value="${removeAbandoned}" />  
+		<property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />    
+	</bean>
+
+	<bean id="dataSourceB" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${driver}" />
+		<property name="url" value="${B.url}" />
+		<property name="username" value="${B.username}" />
+		<property name="password" value="${B.password}" />
+		<property name="testOnBorrow" value="${testOnBorrow}" />        
+        <property name="testWhileIdle" value="${testWhileIdle}" />  
+		<property name="initialSize" value="${initialSize}"></property>
+		<property name="maxActive" value="${maxActive}"></property>
+		<property name="maxIdle" value="${maxIdle}"></property>
+		<property name="minIdle" value="${minIdle}"></property>
+		<property name="maxWait" value="${maxWait}"></property>
+		<property name="validationQuery" value="${validationQuery}" />  
+		<property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />  
+        <property name="removeAbandoned" value="${removeAbandoned}" />  
+		<property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />    
+	</bean>
+	
+	<bean id="dataSourceC" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${driver}" />
+		<property name="url" value="${C.url}" />
+		<property name="username" value="${C.username}" />
+		<property name="password" value="${C.password}" />
+		<property name="testOnBorrow" value="${testOnBorrow}" />        
+        <property name="testWhileIdle" value="${testWhileIdle}" />  
+		<property name="initialSize" value="${initialSize}"></property>
+		<property name="maxActive" value="${maxActive}"></property>
+		<property name="maxIdle" value="${maxIdle}"></property>
+		<property name="minIdle" value="${minIdle}"></property>
+		<property name="maxWait" value="${maxWait}"></property>
+		<property name="validationQuery" value="${validationQuery}" />  
+		<property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />  
+        <property name="removeAbandoned" value="${removeAbandoned}" />  
+		<property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />    
+	</bean>
+
+	<bean id="dynamicDataSource" class="com.adc.utils.DynamicDataSource">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry key="defaultDataSource" value-ref="defaultDataSource" />
+				<entry key="dataSourceA" value-ref="dataSourceA" />
+				<entry key="dataSourceB" value-ref="dataSourceB" />
+				<entry key="dataSourceC" value-ref="dataSourceC" />
+			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="defaultDataSource" />
+	</bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dynamicDataSource"></property>
+	</bean>
+
+	<bean id="baseDao" class="com.adc.dao.impl.BaseDaoImpl">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+
+	<bean id="baseService" class="com.adc.service.impl.BaseServiceImpl"></bean>
+	<bean id="configDao" class="com.adc.dao.impl.ConfigDaoImpl"></bean>
+
+	<bean id="dynamicLoadBean" class="com.adc.utils.DynamicLoadBean"></bean>
+</beans>

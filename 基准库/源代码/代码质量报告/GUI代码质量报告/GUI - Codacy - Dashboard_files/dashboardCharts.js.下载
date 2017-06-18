@@ -1,0 +1,448 @@
+(function($, window) {
+  var classVar = (function() {
+
+    var utils = QamineUtils.getInstance();
+
+    var graphs = {};
+
+    var chartList = {
+      "Issues": loadCategories,
+      "Severity": loadIssues,
+      "Churn/Complexity": loadComplexity,
+      "Project quality": loadQuality,
+      "Coverage": loadCoverage
+    };
+
+
+    function DashboardCharts() {
+    }
+
+    DashboardCharts.prototype.initCharts = function() {
+      var name = $('#charts-container').find('.ChartOption').first().data("name");
+
+      bindGraphSelection();
+      selectChart(name);
+    };
+
+    var selectChart = function(name) {
+      var chartsContainer = $("#charts-container");
+      var chartsText = chartsContainer.find(".chart-text");
+      chartsText.text(name);
+
+      var chartClasses = "";
+      if (name !== "Churn/Complexity") {
+        chartClasses = "commit-axis"
+      }
+
+      var applyChart = function() {
+        var $chartWrapper = $("#chart-wrapper");
+        $chartWrapper.find(".loading").hide();
+        $chartWrapper.append("<svg class='" + chartClasses + "' style=\"height: 330px;\"></svg>");
+        chartList[name](name.toLowerCase());
+      };
+
+      if (!graphs[name.toLowerCase()]) {
+        var url = $('.ChartOption[data-name="' + name + '"]').data("url");
+        utils.request(url, function(data) {
+          if (data.data.length > 0) {
+            graphs[name.toLowerCase()] = poorGraphAugmented(data);
+            applyChart()
+          } else {
+            var $chartWrapper = $("#chart-wrapper");
+            $chartWrapper.find(".loading").hide();
+            $chartWrapper.find(".dashboard__container").show();
+          }
+
+        }, function(error) {
+          console.log("error: " + error);
+        });
+      } else {
+        applyChart()
+      }
+
+      var chartPopover = $("#chart-popover");
+      chartPopover.html("<div id=\"chartDescription\"><i class=\"fa fa-question-circle\"></i></div>");
+
+    };
+
+    var bindGraphSelection = function() {
+      $(".ChartOption").click(function() {
+        var $chartWrapper = $("#chart-wrapper");
+        $chartWrapper.find(".dashboard__container").hide();
+        $chartWrapper.find("svg").remove();
+        $chartWrapper.find(".loading").show();
+        $('.active').removeClass('active');
+        $(this).parent().addClass('active');
+
+        var chartName = $(this).data("name");
+        selectChart(chartName);
+      });
+    };
+
+    var firstGraphValueZero = function(graphData) {
+      //first element must get index 1
+      var firstData = graphData.values[0][1];
+      graphData.values = [
+        [0, firstData],
+        [1, firstData]
+      ];
+      return graphData;
+    };
+
+    var firstGraphValueCopied = function(graphData) {
+      var firstData = graphData.values[0][1];
+      graphData.values = [
+        [0, 0],
+        [1, firstData]
+      ];
+      return graphData;
+    };
+
+    var poorGraphAugmented = function(graph) {
+
+      //graph has less than 2 commits and we don't modify the complexity graph
+      if (graph.commits && graph.commits.length === 1 && graph.name !== "Churn/Complexity") {
+
+        graph.commits = graph.commits.concat(graph.commits);
+
+        if (graph.name === "Issues") {
+          graph.data = _.map(graph.data, firstGraphValueCopied);
+        }
+
+        else { //the ones that show percentages
+          graph.data = _.map(graph.data, firstGraphValueZero);
+        }
+
+      }
+      return graph;
+    };
+
+    var colors = ["#755B89", "#F2C9C4", "#C0DD9F", "#EAE598", "#83BA12", "#9B59B6", "#6DA8FF",
+      "#FF654B", "#26D598", "#F1C40F", "#AFDD43", "#D791EA", "#B6D3FF", "#FFB2A5",
+      "#92EACB", "#F8E187", "#D7EEA1", "#5B81A4", "#AAA", "#000"]; //Churn & Issues
+
+    var issuesColors = ["#F25F5F", "#F4E025", "#00A1CC"]; //Severity
+
+    var gradeColors = ["#26d598", "#62d46d", "#bfcf2b", "#f1c410", "#fb9027", "#fb6050"]; //Quality
+
+    var coverageColors = ["#26d598", "#fb6050"]; //Coverage
+
+    function addColors(keyName) {
+      switch (keyName.key) {
+        case "Compatibility":
+          keyName.color = '#5ed3cd';
+          break;
+        case "Documentation":
+          keyName.color = "#47a899";
+          break;
+        case "Unused Code":
+          keyName.color = "#eae598";
+          break;
+        case "Security":
+          keyName.color = "#ea6884";
+          break;
+        case "Error Prone":
+          keyName.color = "#755b89";
+          break;
+        case "Code Complexity":
+          keyName.color = "#c0dd9f";
+          break;
+        case "Performance":
+          keyName.color = "#8fb5d8";
+          break;
+        case "Code Style":
+          keyName.color = "#f2c9c4";
+          break;
+        case "Others":
+          keyName.color = "#dbe6ec";
+          break;
+      }
+    }
+
+    function getData(graphName) {
+      $.each(graphs[graphName.toLowerCase()].data, function(index, json) {
+        addColors(json);
+      });
+      return graphs[graphName.toLowerCase()].data;
+    }
+
+    function getCommits(graphName) {
+      return graphs[graphName.toLowerCase()].commits;
+    }
+
+    function loadIssues(name) {
+      nv.addGraph(function() {
+        var chart = nv.models.stackedAreaChart()
+          .margin({right: 50})
+          .useInteractiveGuideline(true)
+          .transitionDuration(350)
+          .showLegend(true)
+          .showYAxis(true)
+          .showXAxis(true)
+          .x(function(d) {
+            return d[0];
+          })
+          .y(function(d) {
+            return d[1];
+          })
+          .showControls(false)
+          .style("expand")
+          .color(issuesColors)
+          .noData("No issues found")
+          .interpolate("monotone");
+
+        chart.yAxis
+          .tickFormat(d3.format(',.0d'))
+          .rotateYLabel(false)
+          .axisLabel("Issues");
+
+
+        chart.xAxis
+          .tickFormat(function(d) {
+            return getCommits(name)[d];
+          })
+          .tickValues(getData(name)[0].values.map(function(d) {
+            return d[0];
+          }))
+          .showMaxMin(false)
+          .axisLabel("Commits");
+
+
+        d3.select("#chart-wrapper svg")
+          .datum(getData(name))
+          .call(chart);
+
+
+        return chart;
+      });
+    }
+
+    function getChurnMaxMin(data) {
+      var minX = Infinity;
+      var maxX = 0;
+      $.each(data, function(i, line) {
+        $.each(line.values, function(i, point) {
+          minX = Math.min(minX, point[0]);
+          maxX = Math.max(maxX, point[0]);
+        });
+      });
+      return [minX, maxX + 1];
+    }
+
+    function getYDomain(data) {
+      var minY = Infinity;
+      var maxY = 1;
+      $.each(data, function(i, line) {
+        $.each(line.values, function(i, point) {
+          minY = Math.min(minY, point[1]);
+          maxY = Math.max(maxY, point[1]);
+        });
+      });
+      var chartMaxY = Math.ceil(maxY * 1.1);
+      return [0, chartMaxY];
+    }
+
+    function loadCategories(name) {
+      var dataPoints = getData(name);
+      nv.addGraph(function() {
+        var chart = nv.models.lineChart()
+          .margin({right: 50})
+          .useInteractiveGuideline(true)
+          .transitionDuration(350)
+          .showLegend(true)
+          .showYAxis(true)
+          .showXAxis(true)
+          .yDomain(getYDomain(dataPoints))
+          .x(function(d) {
+            return d[0];
+          })
+          .y(function(d) {
+            return d[1];
+          })
+          .color(colors)
+          .noData("No issues found")
+          .interpolate("monotone");
+
+
+        chart.yAxis
+          .tickFormat(d3.format(',.0d'))
+          .axisLabel("Issues")
+          .rotateYLabel(false);
+
+        chart.xAxis
+          .tickFormat(function(d) {
+            return getCommits(name)[d];
+          })
+          .tickValues(dataPoints.length > 0 ? dataPoints[0].values.map(function(d) {
+            return d[0];
+          }) : 0)
+          .showMaxMin(false)
+          .axisLabel("Commits");
+
+        d3.select("#chart-wrapper svg")
+          .datum(dataPoints)
+          .call(chart);
+
+        return chart;
+      });
+    }
+
+    function loadComplexity(name) {
+      var dataPoints = getData(name);
+      nv.addGraph(function() {
+        var chart = nv.models.scatterChart()
+          .margin({right: 50})
+          .transitionDuration(350)
+          .showLegend(false)
+          .showYAxis(true)
+          .showXAxis(true)
+          .x(function(d) {
+            return d[0];
+          })
+          .y(function(d) {
+            return d[1];
+          })
+          .xDomain(getChurnMaxMin(dataPoints))
+          .color(colors)
+          .showDistX(true)
+          .showDistY(true);
+
+
+        chart.yAxis
+          .tickFormat(d3.format(',.0d'))
+          .rotateYLabel(false)
+          .axisLabel("Complexity");
+
+        chart.tooltipContent(function(key) {
+          return "<h3>" + key + "</h3>";
+        });
+
+        chart.xAxis
+          .tickFormat(d3.format(',.0d'))
+          .axisLabel("Churn");
+
+
+        d3.select("#chart-wrapper svg")
+          .datum(dataPoints)
+          .call(chart);
+
+
+        return chart;
+      });
+    }
+
+    function loadQuality(name) {
+      nv.addGraph(function() {
+        var chart = nv.models.stackedAreaChart()
+          .margin({right: 50})
+          .useInteractiveGuideline(true)
+          .transitionDuration(350)
+          .showLegend(true)
+          .showYAxis(true)
+          .showXAxis(true)
+          .x(function(d) {
+            return d[0];
+          })
+          .y(function(d) {
+            return d[1];
+          })
+          .showControls(false)
+          .style("expand")
+          .color(gradeColors)
+          .noData("No issues found")
+          .interpolate("monotone");
+
+        chart.yAxis
+          .rotateYLabel(false)
+          .axisLabel("Grade");
+
+        chart.xAxis
+          .axisLabel("Commits")
+          .showMaxMin(false)
+          .tickFormat(function(d) {
+            return getCommits(name)[d];
+          })
+          .tickValues(getData(name)[0].values.map(function(d) {
+            return d[0];
+          }));
+
+        d3.select("#chart-wrapper svg")
+          .datum(getData(name).sort(function(a, b) {
+            if (a.key > b.key) {
+              return 1;
+            }
+            if (a.key < b.key) {
+              return -1;
+            }
+            return 0;
+          }))
+          .call(chart);
+
+
+        return chart;
+      });
+    }
+
+    function loadCoverage(name) {
+      nv.addGraph(function() {
+        var chart = nv.models.stackedAreaChart()
+          .margin({right: 50})
+          .useInteractiveGuideline(true)
+          .transitionDuration(350)
+          .showLegend(true)
+          .showYAxis(true)
+          .showXAxis(true)
+          .x(function(d) {
+            return d[0];
+          })
+          .y(function(d) {
+            return d[1];
+          })
+          .showControls(false)
+          .style("expand")
+          .color(coverageColors)
+          .interpolate("monotone");
+
+        chart.yAxis
+          .tickFormat(d3.format(',.0d'))
+          .rotateYLabel(false)
+          .axisLabel("Coverage");
+
+
+        chart.xAxis
+          .tickFormat(function(d) {
+            return getCommits(name)[d];
+          })
+          .tickValues(getData(name)[0].values.map(function(d) {
+            return d[0];
+          }))
+          .showMaxMin(false)
+          .axisLabel("Commits");
+
+
+        d3.select("#chart-wrapper svg")
+          .datum(getData(name))
+          .call(chart);
+
+
+        return chart;
+      });
+    }
+
+    var instance;
+    return {
+      getInstance: function() {
+        if (instance === undefined) {
+          instance = new DashboardCharts();
+          // Hide the constructor so the returned objected can't be new'd...
+          instance.constructor = null;
+        }
+        return instance;
+      }
+    };
+  })();
+
+  window.DashboardCharts = classVar;
+  return window.DashboardCharts;
+
+})(jQuery, window);

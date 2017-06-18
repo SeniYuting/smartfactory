@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+    <script type="text/javascript">
+        function GetData(){
+            var id = $("#id").val();
+            var option = {
+                "header":"req",
+                "name":id
+            };
+            $.ajax({
+                "url":"http://139.224.57.175:3000/",
+                "type":"get",
+                "data": option,
+                "dataType": "html", //因为是调用nodeJS返回的json数据，所以必须使用binary类型
+                "error": function(){
+
+                },
+                "success": function(data){
+                    document.getElementById("res").innerHTML = "";
+                    data = JSON.parse(data);
+                    for(var i in data){
+                        document.getElementById("res").innerHTML += i + ":" + JSON.stringify(data[i]) + "\n";
+                    }
+
+                }
+
+            });
+        }
+    </script>
+</head>
+<body>
+<input id="id" type="text" />
+<input type="button" value="获取数据" onclick="GetData()" />
+<div id="res"></div>
+</body>
+</html>

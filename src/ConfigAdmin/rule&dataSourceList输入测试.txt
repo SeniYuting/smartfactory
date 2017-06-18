@@ -1,0 +1,51 @@
+﻿rule：
+0: 符合要求,3种情况，允许为{}
+1: 必须以{开头，以}结尾
+2: 必须为JSON格式
+* rule不为{}时
+3: ruleName的值必须为"sort"或"exp"
+4: ruleName值为sort，key必须有order
+5: order值必须为"desc"或"asc"
+6: ruleName值为exp，key必须有expression
+7: expression值必须为string格式
+8: key的值必须为string格式 
+9: key中必须有ruleName和key各一次
+
+正常情况：
+{}
+{"ruleName":"sort", "key":"value", "order":"desc"}
+{"ruleName":"exp", "key":"value", "expression":""}
+
+
+dataSourceList：
+0: 符合要求
+1: 必须以[开头，以]结尾且非[]
+2: 必须为JSON格式
+3: key必须为name或frequency
+4: name后的value必须是string
+5: frequency后的value必须是数字
+6: JSON中存在没有key的单值
+7: key中name和frequency必须成对出现
+
+正常情况：
+[{"name":"s_today_order","frequency":10}]
+[ {"name" : "s_reason_analyze","frequency" : 60},
+  {"name" : "s_reason_analyze","frequency" : 60} ]
+[ {"name" : "s_reason_analyze","frequency" : 60,"name":"aaa"} ]
+[ {"name" : "s_reason_analyze","frequency" : 60,"frequency" : 50} ]
+[ {"name" : "s_reason_analyze","frequency" : 60, "name":"aaa","frequency" : 50},
+  {"name" : "s_reason_analyze","frequency" : 60} ]
+空格、换行无所谓
+
+异常情况：
+1
+[{"name":"1","frequency"}]
+[{"nnnnne":"s_today_order","frequency":10}]
+[{"name":"1","etttu":60}]
+[{"name":"1","frequency":""}]
+[{"name":"1","frequency":e}]
+[{"name":1,"frequency":60}]
+[1]
+[{"name":"1"}]
+[]
+[ ]
